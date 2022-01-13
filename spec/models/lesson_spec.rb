@@ -5,8 +5,15 @@ RSpec.describe Lesson, type: :model do
   describe '#validations' do
     let(:lesson) { build(:lesson) }
 
-    it 'tests lesson object' do
-      expect(lesson).to be_valid
+    # it 'tests lesson object' do
+    #   expect(lesson).to be_valid
+    # end
+
+    it 'tests that factory is valid' do
+      expect(lesson).to be_valid # lesson.valid? == true
+      lesson.save!
+      another_lesson = build(:lesson)
+      expect(another_lesson).to be_valid
     end
 
     it 'has an invalid title' do
@@ -25,6 +32,14 @@ RSpec.describe Lesson, type: :model do
       lesson.slug = ''
       expect(lesson).not_to be_valid
       expect(lesson.errors[:slug]).to include("can't be blank")
+    end
+
+    it 'validates the uniqueness of the slug' do
+      lesson1 = create(:lesson)
+      expect(lesson1).to be_valid
+      lesson2 = build(:lesson, slug: lesson1.slug)
+      expect(lesson2).not_to be_valid
+      expect(lesson2.errors[:slug]).to include("has already been taken")
     end
   end
   # it 'tests lesson object' do
