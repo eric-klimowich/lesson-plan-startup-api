@@ -10,9 +10,21 @@ RSpec.describe Lesson, type: :model do
     end
 
     it 'has an invalid title' do
-      article.title = ''
+      lesson.title = ''
       expect(lesson).not_to be_valid
       expect(lesson.errors[:title]).to include("can't be blank")
+    end
+
+    it 'has an invalid description' do
+      lesson.description = ''
+      expect(lesson).not_to be_valid
+      expect(lesson.errors[:description]).to include("can't be blank")
+    end
+
+    it 'has an invalid slug' do
+      lesson.slug = ''
+      expect(lesson).not_to be_valid
+      expect(lesson.errors[:slug]).to include("can't be blank")
     end
   end
   # it 'tests lesson object' do
