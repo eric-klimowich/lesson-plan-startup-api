@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :lesson do
-    title { "MyString" }
-    description { "MyText" }
-    slug { "MyString" }
+    title { "The Title" }
+    description { "All of the description." }
+    slug { "the-title" }
   end
 end
