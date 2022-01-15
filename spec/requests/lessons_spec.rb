@@ -10,19 +10,14 @@ RSpec.describe "Lessons", type: :request do
     it 'returns a proper JSON' do
       lesson = create :lesson
       get '/lessons'
-      body = JSON.parse(response.body)
+      body = JSON.parse(response.body, symbolize_names: true)
       expect(body).to eq(
-        data: [
-          {
-            id: lesson.id,
-            type: 'lessons',
-            attributes: {
-              title: lesson.title,
-              description: lesson.description,
-              slug: lesson.slug
-            }
-          }
-        ]
+        [{
+          id: lesson.id,
+          title: lesson.title,
+          description: lesson.description,
+          slug: lesson.slug
+        }]
       )
     end
   end
